@@ -1,0 +1,29 @@
+[This text has nothing to do with bgn]
+The current state of Haskell development on Arch Linux is a big ball of sadness and despair.
+
+The situation is this: Haskell packages are built as individual Arch packages, downloadable through the pacman package manager or directly from the repository, and dynamically linked against each other. The intended upsides of this are clear enough: Compiled programs can reuse the libraries that are installed, so you don’t need a copy of base or whatever inside of every Haskell binary you download.
+
+However, the wisdom of this move is a matter of some debate. The Arch maintainers move at speed, but even they cannot be expected to keep up with the dozens of daily Haskell package updates. The upshot of this is that many Haskell programs end up being compiled statically anyway, otherwise they would not run against the library packages installed from the Arch repository. Moreover many binaries will have been built against different versions of these “shared” libraries, so you end up in a version of dependency hell from which you cannot extricate yourself.
+
+That’s not all, though. The ghc and cabal-install packages are dynamically linked against the lib packages mentioned above, but do not compile against those same libs by default, which means that in the default setting it is not possible to compile any program using the compiler and build system. You have to specifically configure it to run dynamically, at which point it will work (provided that you ensure anyone running the binary has the required system packages installed, of course).
+
+If you need any more convincing of how bad this is: More than half of the Haskell page on the Arch Linux Wiki is dedicated to problems compiling and linking Haskell code.
+
+Option 1: Use stack
+Sadly, this is the current best option for building Haskell programs on Arch Linux. The stack build tool will automatically install a statically compiled version of ghc for you, and grab the relevant dependencies without any bother. You might expect that this requires a stack.yaml and a package.yaml or whatever, but in fact stack is capable of working just fine with a manually-defined .cabal file and nothing else.
+
+I’m not a huge fan of stack, if you can’t tell. Its existence is a symptom of the issues that exist with GHC and Cabal. It’s a shame that we need a wrapper just to make cabal usable on Arch, especially since the new build tools in cabal are good enough for general use. But right now, it does what it was always designed to do: fix the problems that developers should never have had to deal with in the first place.
+
+I would recommend installing stack-bin from the Arch User Repository. This is a binary, and therefore does not require any of the system-level packages to be installed. From here, running stack init and then stack build as you would cabal new-build should get you all the way to a compiled binary with no additional steps (disk space permitting).
+
+Option 2: Use cabal-static
+Also available from the Arch User Repository is a version of cabal-install which was statically compiled, and therefore does not suffer from the same issues as the default installation. Installing cabal-install should allow you to use cabal as usual from the command line, with the only difference being that it actually works.
+
+I haven’t tested this 100%, but it does at least download and locally install the correct packages from Hackage unprompted.
+
+What can we do about it?
+I implore the Arch Linux maintainers to undo the switch to dynamically-linked packages. Not only has it significantly damaged the ability of Haskell programmers to get anything done at all, but it also makes both Arch and Haskell look like a garbled, unusable mess. There aren’t even that many Haskell binaries on the Arch repsitory, so repackaging them as binaries won’t even be that big of a task.
+
+Sort it out, please. This is getting embarrassing.
+
+EDIT 2020-06-10: Apparently the status of Haskell on Arch has been the subject of a longstanding flame war between members of the Haskell community and the Arch team. I have no negative sentiment towards Arch package maintainers who dedicate a large portion of their time to making Arch a fantastic distribution to use. Please treat them with respect and take the time to learn about and understand their perspective before engaging in the conversation.

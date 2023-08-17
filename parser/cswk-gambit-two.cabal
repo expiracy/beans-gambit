@@ -1,0 +1,83 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.35.1.
+--
+-- see: https://github.com/sol/hpack
+
+name:           cswk-gambit-two
+version:        0.1.0.0
+author:         Alex Dixon
+maintainer:     alexander.dixon@warwick.ac.uk
+copyright:      2023 Alex Dixon
+license:        BSD3
+build-type:     Simple
+
+library
+  exposed-modules:
+      Bean.Game
+      Bean.Parsers
+      Bean.Types
+  other-modules:
+      Paths_cswk_gambit_two
+  hs-source-dirs:
+      src
+  default-extensions:
+      StrictData
+      LambdaCase
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -Wno-orphans -Wno-missing-export-lists
+  build-depends:
+      base >=4.7 && <5
+    , containers
+    , megaparsec
+    , mtl
+    , parser-combinators
+    , process
+  default-language: GHC2021
+
+executable gambit
+  main-is: Main.hs
+  other-modules:
+      Paths_cswk_gambit_two
+  hs-source-dirs:
+      app
+  default-extensions:
+      StrictData
+      LambdaCase
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -Wno-orphans -Wno-missing-export-lists -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , containers
+    , cswk-gambit-two
+    , megaparsec
+    , mtl
+    , parser-combinators
+    , process
+  default-language: GHC2021
+
+test-suite cswk-gambit-two-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_cswk_gambit_two
+  hs-source-dirs:
+      test
+  default-extensions:
+      StrictData
+      LambdaCase
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -Wno-orphans -Wno-missing-export-lists -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      QuickCheck
+    , ansi-terminal
+    , base >=4.7 && <5
+    , containers
+    , cswk-gambit-two
+    , megaparsec
+    , mtl
+    , parser-combinators
+    , process
+    , random
+    , tasty
+    , tasty-hunit
+    , tasty-quickcheck
+    , tasty-reporter-muffled
+  default-language: GHC2021
