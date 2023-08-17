@@ -1,0 +1,59 @@
+name:                cswk-gambit
+version:             0.1.0.0
+license:             "AllRightsReserved"
+author:              "Alex Dixon"
+maintainer:          "alexander.dixon@warwick.ac.uk"
+copyright:           "2023 Alex Dixon"
+
+dependencies:
+- base >= 4.7 && < 5
+
+ghc-options:
+- -Wall
+- -Wcompat
+- -Widentities
+- -Wincomplete-record-updates
+- -Wincomplete-uni-patterns
+- -Wmissing-home-modules
+- -Wpartial-fields
+- -Wredundant-constraints
+- -Wno-orphans 
+- -Wno-missing-export-lists
+
+language: GHC2021
+
+default-extensions:
+- StrictData
+- LambdaCase
+
+library:
+  source-dirs: src
+
+# executables:
+#   cswk-gambit-exe:
+#     main:                Main.hs
+#     source-dirs:         app
+#     ghc-options:
+#     - -threaded
+#     - -rtsopts
+#     - -with-rtsopts=-N
+#     dependencies:
+#     - cswk-gambit
+
+tests:
+  cswk-gambit-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - cswk-gambit
+    - tasty
+    - tasty-hunit
+    - tasty-quickcheck
+    - tasty-reporter-muffled
+    - random
+    - ansi-terminal
+    - QuickCheck

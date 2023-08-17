@@ -1,0 +1,11 @@
+cradle:
+  multi:
+    - path: "./"
+      config:
+        cradle:
+          stack:
+            - path: "./src"
+              component: "cswk-gambit:lib"
+
+            - path: "./test"
+              component: "cswk-gambit:test:cswk-gambit-test"
